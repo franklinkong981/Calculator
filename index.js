@@ -2,6 +2,7 @@ let screenText = document.querySelector('.screen-text');
 let statementToParse = ""; //Expression that we'll evaluate.
 let statementToDisplay = ""; //What we'll display on the calculator.
 let previousAnswer = "";
+let isError = false;
 
 const calcNonOperationButtons = document.querySelectorAll('button');
 calcNonOperationButtons.forEach((currentCalcButton) => 
@@ -44,7 +45,7 @@ function handleOperationClick(buttonId, buttonContent) {
     else if (buttonId === "division") {
         handleDivision(buttonContent);
     }
-    else if (buttonId === "equals") {
+    else if (buttonId === "equals" && statementToParse !== "") {
         handleEnter();
     }
 }
@@ -56,11 +57,9 @@ function handleClearButton() {
 }
 
 function handleDeleteButton() {
-    if (statementToDisplay !== "") {
-        statementToParse = statementToParse.slice(0, -1);
-        statementToDisplay = statementToDisplay.slice(0, -1);
-        screenText.textContent = (statementToDisplay === "") ? "0" : statementToDisplay;
-    }
+    statementToParse = statementToParse.slice(0, -1);
+    statementToDisplay = statementToDisplay.slice(0, -1);
+    screenText.textContent = (statementToDisplay === "") ? "0" : statementToDisplay;
 }
 
 function handleNumberButton(buttonContent) {
@@ -70,8 +69,8 @@ function handleNumberButton(buttonContent) {
 }
 
 function handleNegativeButton() {
-    statementToParse += "-";
-    statementToDisplay += "-";
+    statementToParse += " -";
+    statementToDisplay += " -";
     screenText.textContent = statementToDisplay;
 }
 
@@ -103,6 +102,20 @@ function handleDivision(buttonContent) {
     screenText.textContent = statementToDisplay;
 }
 
-function handleEquals() {
-
+function handleEnter() {
+    try {
+        let answer = eval(statementToParse);
+        if (isFinite(answer)) {
+            screenText.textContent = answer;
+        }
+        else {
+            screenText.textContent = "Infinity";
+        }
+    } catch (error) {
+        isError = true;
+        screenText.textContent = "ERROR";
+    } finally {
+       statementToDisplay = "";
+       statementToParse = ""; 
+    }
 }
