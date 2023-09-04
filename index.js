@@ -12,23 +12,41 @@ calcButtons.forEach((currentCalcButton) =>
 
 function handleCalcButtonClick(buttonContent) {
     if (buttonContent === "Clear") {
-        statementToParse = "";
-        statementToDisplay = "";
-        screenText.textContent = "0";
+        handleClearButton();
     } else if (buttonContent === "Del" && statementToDisplay !== "") {
+        handleDeleteButton();
+    } else if (Number.isInteger(parseInt(buttonContent)) || buttonContent === ".") {
+        handleNumberButton(buttonContent);
+    }
+    else if (buttonContent === "Neg") {
+        handleNegativeButton();
+    }
+}
+
+function handleClearButton() {
+    statementToParse = "";
+    statementToDisplay = "";
+    screenText.textContent = "0";
+}
+
+function handleDeleteButton() {
+    if (statementToDisplay !== "") {
         statementToParse = statementToParse.slice(0, -1);
         statementToDisplay = statementToDisplay.slice(0, -1);
         screenText.textContent = (statementToDisplay === "") ? "0" : statementToDisplay;
-    } else if (Number.isInteger(parseInt(buttonContent)) || buttonContent === ".") {
-        statementToParse += buttonContent;
-        statementToDisplay += buttonContent;
-        screenText.textContent = statementToDisplay;
     }
-    else if (buttonContent === "Neg") {
-        statementToParse += "-";
-        statementToDisplay += "-";
-        screenText.textContent = statementToDisplay;
-    }
+}
+
+function handleNumberButton(buttonContent) {
+    statementToParse += buttonContent;
+    statementToDisplay += buttonContent;
+    screenText.textContent = statementToDisplay;
+}
+
+function handleNegativeButton() {
+    statementToParse += "-";
+    statementToDisplay += "-";
+    screenText.textContent = statementToDisplay;
 }
 
 
