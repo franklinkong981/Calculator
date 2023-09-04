@@ -12,7 +12,7 @@ calcNonOperationButtons.forEach((currentCalcButton) =>
 const calcOperationButtons = document.querySelectorAll('.operation-button');
 calcOperationButtons.forEach((currentCalcButton) =>
     currentCalcButton.addEventListener('click', function() {
-        handleNonOperationClick(currentCalcButton.id, currentCalcButton.textContent);
+        handleOperationClick(currentCalcButton.id, currentCalcButton.textContent);
     })
 );
 
@@ -79,5 +79,30 @@ function handleAnswerButton() {
 
 }
 
+function handleAddition(buttonContent) {
+    statementToParse += "+";
+    statementToDisplay += buttonContent;
+    screenText.textContent = statementToDisplay;
+}
 
+function handleSubtraction(buttonContent) {
+    statementToParse += "-";
+    statementToDisplay += buttonContent;
+    screenText.textContent = statementToDisplay;
+}
 
+function handleMultiplication(buttonContent) {
+    statementToParse += "*";
+    statementToDisplay += buttonContent;
+    screenText.textContent = statementToDisplay;
+}
+
+function handleDivision(buttonContent) {
+    statementToParse += "/";
+    statementToDisplay += buttonContent;
+    screenText.textContent = statementToDisplay;
+}
+
+function handleEquals() {
+
+}
