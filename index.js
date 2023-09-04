@@ -106,6 +106,9 @@ function handleDivision(buttonContent) {
 
 function handleEnter() {
     try {
+        if (statementToParse.includes("//")) {
+            throw new SyntaxError();
+        }
         let answer = eval(statementToParse);
         if (isFinite(answer)) {
             screenText.textContent = answer;
