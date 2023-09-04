@@ -93,8 +93,16 @@ function handleSubtraction(buttonContent) {
 }
 
 function handleMultiplication(buttonContent) {
+    let parseLength = statementToParse.length;
+    if (parseLength >= 2 && statementToParse.charAt(parseLength-1) === "*" && statementToParse.charAt(parseLength-2) !== "*") {
+        statementToDisplay = statementToDisplay.slice(0, -1);
+        statementToDisplay += "^";
+        //Deletes the last character of the expression displayed on the calculator, which is currently x, to ^.
+    }
+    else {
+        statementToDisplay += buttonContent;
+    }
     statementToParse += "*";
-    statementToDisplay += buttonContent;
     screenText.textContent = statementToDisplay;
 }
 
