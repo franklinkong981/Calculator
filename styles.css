@@ -83,6 +83,10 @@ button {
     cursor: pointer;
 }
 
+#clear-button {
+    width: 49.4%;
+}
+
 button:active {
     background-color: lightgray;
 }

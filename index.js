@@ -25,8 +25,6 @@ function handleNonOperationClick(buttonContent) {
     if (!isError && !isInfinity) {
         if (buttonContent === "Del" && statementToDisplay !== "") {
             handleDeleteButton();
-        } else if (buttonContent === "Ans") {
-            handleAnswerButton();
         } else if (Number.isInteger(parseInt(buttonContent)) || buttonContent === ".") {
             handleNumberButton(buttonContent);
         }
@@ -82,10 +80,6 @@ function handleNegativeButton() {
     screenText.textContent = statementToDisplay;
 }
 
-function handleAnswerButton() {
-
-}
-
 function handleAddition(buttonContent) {
     statementToParse += "+";
     statementToDisplay += buttonContent;
@@ -115,6 +109,8 @@ function handleEnter() {
         let answer = eval(statementToParse);
         if (isFinite(answer)) {
             screenText.textContent = answer;
+            statementToDisplay = answer.toString();
+            statementToParse = answer.toString();
         }
         else {
             screenText.textContent = "Infinity";
@@ -124,7 +120,9 @@ function handleEnter() {
         isError = true;
         screenText.textContent = "ERROR";
     } finally {
-       statementToDisplay = "";
-       statementToParse = ""; 
+       if (isError || isInfinity) {
+        statementToDisplay = "";
+        statementToParse = "";
+       }
     }
 }
